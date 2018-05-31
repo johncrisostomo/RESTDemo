@@ -32,15 +32,22 @@ namespace RESTDemo.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]PropertyDto property)
         {
+            var index = PropertiesDataStore.Current.Properties.FindIndex(p => p.Id == id);
+
+            PropertiesDataStore.Current.Properties[index] = property;
+
+            return Ok();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             var PropertyToRemove = PropertiesDataStore.Current.Properties.FirstOrDefault(p => p.Id == id);
+
             PropertiesDataStore.Current.Properties.Remove(PropertyToRemove);
+
             return Ok();
         }
     }
