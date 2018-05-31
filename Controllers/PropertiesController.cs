@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RESTDemo.API.Models;
 
 namespace RESTDemo.API.Controllers
 {
@@ -16,14 +17,18 @@ namespace RESTDemo.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var propertyToReturn = PropertiesDataStore.Current.Properties.FirstOrDefault(p => p.Id == id);
+            return Ok(propertyToReturn);
         }
 
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]PropertyDto property)
         {
+            var PropertiesCount = PropertiesDataStore.Current.Properties.Count;
+            PropertiesDataStore.Current.Properties.Insert(PropertiesCount, property);
+            return Ok();
         }
 
         [HttpPut("{id}")]
@@ -32,8 +37,11 @@ namespace RESTDemo.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var PropertyToRemove = PropertiesDataStore.Current.Properties.FirstOrDefault(p => p.Id == id);
+            PropertiesDataStore.Current.Properties.Remove(PropertyToRemove);
+            return Ok();
         }
     }
 }
