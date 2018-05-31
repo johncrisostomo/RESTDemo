@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace RESTDemo.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class PropertiesController : Controller
     {
         // GET api/values
         [HttpGet]
