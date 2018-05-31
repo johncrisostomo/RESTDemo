@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace RESTDemo.Controllers
+namespace RESTDemo.API.Controllers
 {
     [Route("api/[controller]")]
     public class PropertiesController : Controller
